@@ -1,4 +1,4 @@
-# greedobank-lviv/user-service
+# greedobank-lviv/report-service
 
 
 
@@ -6,9 +6,9 @@
 
 Download links:
 
-SSH clone URL: ssh://git@git.jetbrains.space/java-internship/greedobank-lviv/user-service.git
+SSH clone URL: ssh://git@git.jetbrains.space/java-internship/greedobank-lviv/report-service.git
 
-HTTPS clone URL: https://git.jetbrains.space/java-internship/greedobank-lviv/user-service.git
+HTTPS clone URL: https://git.jetbrains.space/java-internship/greedobank-lviv/report-service.git
 
 
 

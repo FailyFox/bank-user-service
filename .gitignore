@@ -1,0 +1,7 @@
+.idea/*
+target/*
+mvnw
+mvnw.cmd
+CODEOWNERS
+user_service.iml
+HELP.md

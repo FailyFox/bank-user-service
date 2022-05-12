@@ -1,7 +1,7 @@
 .idea/*
 target/*
+HELP.md
 mvnw
 mvnw.cmd
 user_service.iml
-HELP.md
 .DS_Store

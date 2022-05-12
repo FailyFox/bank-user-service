@@ -6,14 +6,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "familyMember")
 @Getter
 @Setter
-@Table
 @NoArgsConstructor
 public class FamilyMember {
     @Id
-    @Column(nullable = false)
     private int id;
 
     private String fname;

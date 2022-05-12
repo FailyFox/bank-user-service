@@ -6,14 +6,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "person")
 @Getter
 @Setter
-@Table
 @NoArgsConstructor
 public class Person {
     @Id
-    @Column(nullable = false)
     private int id;
 
     private String fname;

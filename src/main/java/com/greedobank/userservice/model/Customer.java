@@ -7,14 +7,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "customer")
 @Getter
 @Setter
-@Table
 @NoArgsConstructor
 public class Customer {
     @Id
-    @Column(nullable = false)
     private int id;
 
     private String phone;

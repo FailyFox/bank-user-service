@@ -1,18 +1,16 @@
 package com.greedobank.userservice.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity(name = "person")
+@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class Person {
     @Id
-    private int id;
+    private Integer id;
 
     private String fname;
     private String lname;

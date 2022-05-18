@@ -1,19 +1,17 @@
 package com.greedobank.userservice.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity(name = "customer")
+@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class Customer {
     @Id
-    private int id;
+    private Integer id;
 
     private String phone;
     private String idCode;

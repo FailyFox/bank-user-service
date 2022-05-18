@@ -1,19 +1,17 @@
 package com.greedobank.userservice.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "manager")
+@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class Manager {
     @Id
-    private int id;
+    private Integer id;
 
     @OneToOne
     @JoinColumn(name = "personId")

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 public class Customer {
     @Id
+    @GeneratedValue
     private Integer id;
 
     private String phone;

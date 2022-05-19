@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 public class FamilyMember {
     @Id
+    @GeneratedValue
     private Integer id;
 
     private String fname;

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 public class Customer {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String phone;

@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class Manager {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne

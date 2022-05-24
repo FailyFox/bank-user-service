@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 public class FamilyMember {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String fname;

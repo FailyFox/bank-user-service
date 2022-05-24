@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 public class Person {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String fname;

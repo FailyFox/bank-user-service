@@ -20,9 +20,9 @@ public class Person {
     private String refreshToken;
     private String address;
 
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "person")
     private Customer customer;
 
-    @OneToOne(mappedBy = "manager")
+    @OneToOne(mappedBy = "person")
     private Manager manager;
 }

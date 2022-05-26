@@ -16,7 +16,7 @@ public class Manager {
 
     @OneToOne
     @JoinColumn(name = "personId")
-    private Person manager;
+    private Person person;
 
     @OneToMany(mappedBy = "manager")
     private List<FamilyMember> familyMembers;

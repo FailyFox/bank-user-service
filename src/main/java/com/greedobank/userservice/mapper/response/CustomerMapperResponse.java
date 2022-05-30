@@ -14,6 +14,6 @@ public interface CustomerMapperResponse {
             @Mapping(target = "email", source = "customer.person.email"),
             @Mapping(target = "address", source = "customer.person.address")
     })
-    CustomerDtoResponse toDto (Customer customer);
+    CustomerDtoResponse toDto(Customer customer);
     Customer toCustomer(CustomerDtoResponse customerDtoResponse);
 }

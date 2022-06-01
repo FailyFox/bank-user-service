@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapperRequest {
-    CustomerDtoRequest toDto(Customer customer);
-    Customer toCustomer(CustomerDtoRequest customerDtoRequest);
+
+  CustomerDtoRequest toDto(Customer customer);
+
+  Customer toCustomer(CustomerDtoRequest customerDtoRequest);
 }

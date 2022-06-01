@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping(path = "/customer")
 public class CustomerController {
-    private final CustomerServiceImpl customerService;
 
-    @GetMapping("/{id}")
-    public CustomerDtoResponse getCustomer(@PathVariable Integer id) {
-        return customerService.getCustomer(id);
-    }
+  private final CustomerServiceImpl customerService;
 
-    @PostMapping
-    public CustomerDtoResponse addCustomer(@RequestBody CustomerDtoRequest customer) {
-        return customerService.addCustomer(customer);
-    }
+  @GetMapping("/{id}")
+  public CustomerDtoResponse getCustomer(@PathVariable Integer id) {
+    return customerService.getCustomer(id);
+  }
+
+  @PostMapping
+  public CustomerDtoResponse addCustomer(@RequestBody CustomerDtoRequest customer) {
+    return customerService.addCustomer(customer);
+  }
 }

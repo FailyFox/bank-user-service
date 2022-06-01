@@ -9,16 +9,17 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class FamilyMember {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    private String fname;
-    private String lname;
-    private String phone;
-    private String address;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "managerId")
-    private Manager manager;
+  private String fname;
+  private String lname;
+  private String phone;
+  private String address;
+
+  @ManyToOne
+  @JoinColumn(name = "managerId")
+  private Manager manager;
 }

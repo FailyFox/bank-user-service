@@ -10,14 +10,15 @@ import java.util.List;
 @Getter
 @Setter
 public class Manager {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "personId")
-    private Person person;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @OneToMany(mappedBy = "manager")
-    private List<FamilyMember> familyMembers;
+  @OneToOne
+  @JoinColumn(name = "personId")
+  private Person person;
+
+  @OneToMany(mappedBy = "manager")
+  private List<FamilyMember> familyMembers;
 }

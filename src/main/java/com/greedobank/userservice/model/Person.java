@@ -9,20 +9,21 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    private String fname;
-    private String lname;
-    private String email;
-    private String password;
-    private String refreshToken;
-    private String address;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @OneToOne(mappedBy = "person")
-    private Customer customer;
+  private String fname;
+  private String lname;
+  private String email;
+  private String password;
+  private String refreshToken;
+  private String address;
 
-    @OneToOne(mappedBy = "person")
-    private Manager manager;
+  @OneToOne(mappedBy = "person")
+  private Customer customer;
+
+  @OneToOne(mappedBy = "person")
+  private Manager manager;
 }

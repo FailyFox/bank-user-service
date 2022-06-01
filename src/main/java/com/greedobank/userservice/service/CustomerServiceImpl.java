@@ -13,18 +13,19 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
-    private final CustomerRepository customerRepository;
-    private final CustomerMapperRequest customerMapperRequest;
-    private final CustomerMapperResponse customerMapperResponse;
 
-    public CustomerDtoResponse getCustomer(int id) {
-        return customerRepository.findById(id)
-                .map(customerMapperResponse::toDto)
-                .orElseThrow(() -> new NoSuchCustomerException("There is no customer with that id"));
-    }
+  private final CustomerRepository customerRepository;
+  private final CustomerMapperRequest customerMapperRequest;
+  private final CustomerMapperResponse customerMapperResponse;
 
-    public CustomerDtoResponse addCustomer(CustomerDtoRequest dtoCustomer) {
-        Customer customer = customerMapperRequest.toCustomer(dtoCustomer);
-        return customerMapperResponse.toDto(customerRepository.save(customer));
-    }
+  public CustomerDtoResponse getCustomer(int id) {
+    return customerRepository.findById(id)
+        .map(customerMapperResponse::toDto)
+        .orElseThrow(() -> new NoSuchCustomerException("There is no customer with that id"));
+  }
+
+  public CustomerDtoResponse addCustomer(CustomerDtoRequest dtoCustomer) {
+    Customer customer = customerMapperRequest.toCustomer(dtoCustomer);
+    return customerMapperResponse.toDto(customerRepository.save(customer));
+  }
 }

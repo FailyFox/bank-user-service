@@ -10,16 +10,17 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    private String phone;
-    private String idCode;
-    private String passportData;
-    private LocalDate birthday;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "personId")
-    private Person person;
+  private String phone;
+  private String idCode;
+  private String passportData;
+  private LocalDate birthday;
+
+  @OneToOne
+  @JoinColumn(name = "personId")
+  private Person person;
 }

@@ -2,8 +2,9 @@ package com.greedobank.userservice.controller;
 
 import com.greedobank.userservice.dto.request.CustomerDtoRequest;
 import com.greedobank.userservice.dto.response.CustomerDtoResponse;
-import com.greedobank.userservice.service.CustomerServiceImpl;
+import com.greedobank.userservice.service.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +20,7 @@ public class CustomerController {
   }
 
   @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
   public CustomerDtoResponse addCustomer(@RequestBody CustomerDtoRequest customer) {
     return customerService.addCustomer(customer);
   }

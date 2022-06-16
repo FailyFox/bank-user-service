@@ -21,9 +21,9 @@ public class Person {
   private String refreshToken;
   private String address;
 
-  @OneToOne(mappedBy = "person")
+  @OneToOne(mappedBy = "person", optional = false)
   private Customer customer;
 
-  @OneToOne(mappedBy = "person")
+  @OneToOne(mappedBy = "person", optional = false)
   private Manager manager;
 }

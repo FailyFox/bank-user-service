@@ -5,6 +5,7 @@ import com.greedobank.userservice.dto.response.CustomerDtoResponse;
 import com.greedobank.userservice.service.impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class CustomerController {
   private final CustomerServiceImpl customerService;
 
   @GetMapping("/{id}")
+  @Secured({"ROLE_MANAGER"})
   public CustomerDtoResponse getCustomer(@PathVariable Integer id) {
     return customerService.getCustomer(id);
   }

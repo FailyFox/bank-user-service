@@ -16,6 +16,9 @@ public class PersonDetailsService implements UserDetailsService {
   @Override
   public PersonDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     Person person = personService.getPersonByEmail(email);
+    if (person == null) {
+      return null;
+    }
     String role = personService.getRole(person);
     return PersonDetails.personToPersonDetails(person, role);
   }

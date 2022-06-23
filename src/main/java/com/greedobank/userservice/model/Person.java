@@ -18,7 +18,6 @@ public class Person {
   private String lname;
   private String email;
   private String password;
-  private String refreshToken;
   private String address;
 
   @OneToOne(mappedBy = "person")

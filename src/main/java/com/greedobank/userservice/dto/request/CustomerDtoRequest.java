@@ -10,13 +10,8 @@ import java.time.LocalDate;
 @Setter
 public class CustomerDtoRequest {
 
-  private String fname;
-  private String lname;
-  private String email;
-  private String address;
   private String phone;
   private String idCode;
   private String passportData;
-  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate birthday;
 }

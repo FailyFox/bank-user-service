@@ -19,6 +19,6 @@ public class Manager {
   @JoinColumn(name = "personId")
   private Person person;
 
-  @OneToMany(mappedBy = "manager")
+  @OneToMany(mappedBy = "manager", orphanRemoval = true, cascade = CascadeType.PERSIST)
   private List<FamilyMember> familyMembers;
 }

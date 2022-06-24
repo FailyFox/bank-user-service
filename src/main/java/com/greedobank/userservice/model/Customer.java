@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Getter
@@ -20,7 +22,8 @@ public class Customer {
   private String passportData;
   private LocalDate birthday;
 
-  @OneToOne
-  @JoinColumn(name = "personId")
+  @OneToOne(cascade = CascadeType.ALL)
+  @NotFound(action = NotFoundAction.IGNORE)
+  @JoinColumn(name = "personId", referencedColumnName = "id")
   private Person person;
 }

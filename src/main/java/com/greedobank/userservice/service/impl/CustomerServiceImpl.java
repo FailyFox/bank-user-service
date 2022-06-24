@@ -17,7 +17,6 @@ public class CustomerServiceImpl implements CustomerService {
   private final CustomerRepository customerRepository;
   private final CustomerResponseMapper customerResponseMapper;
 
-
   public List<CustomerDtoResponse> getAllCustomers() {
     List<CustomerDtoResponse> customers = new ArrayList<>();
     customerRepository.findAll()
@@ -26,14 +25,6 @@ public class CustomerServiceImpl implements CustomerService {
         .forEach(customers::add);
     return customers;
   }
-
-  /*
-  public Iterable<Customer> getAllCustomers() {
-    return customerRepository.findAll();
-  }
-
-   */
-
 
   public CustomerDtoResponse getCustomer(int id) {
     return customerRepository.findById(id)

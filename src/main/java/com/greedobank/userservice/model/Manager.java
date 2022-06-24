@@ -15,8 +15,8 @@ public class Manager {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @OneToOne
-  @JoinColumn(name = "personId")
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "personId", referencedColumnName = "id")
   private Person person;
 
   @OneToMany(mappedBy = "manager")

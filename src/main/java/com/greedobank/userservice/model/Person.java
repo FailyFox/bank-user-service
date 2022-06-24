@@ -18,12 +18,11 @@ public class Person {
   private String lname;
   private String email;
   private String password;
-  private String refreshToken;
   private String address;
 
-  @OneToOne(mappedBy = "person", optional = false)
+  @OneToOne(mappedBy = "person", optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Customer customer;
 
-  @OneToOne(mappedBy = "person", optional = false)
+  @OneToOne(mappedBy = "person", optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Manager manager;
 }

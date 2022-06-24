@@ -27,7 +27,19 @@ public class JwtProvider {
   @Value("${SECRET_WORD}")
   private String jwtSecret;
 
-  public boolean validateToken(String token, HttpServletResponse response) throws IOException {
+  public String generateToken(String login) {
+    Date date = Date.from(
+        LocalDate.now().plusDays(EXPIRATION_TIME)
+            .atStartOfDay(ZoneId.systemDefault()).toInstant());
+    return Jwts.builder()
+        .setSubject(login)
+        .setExpiration(date)
+        .signWith(SignatureAlgorithm.HS512, getSecretKeyFrom(jwtSecret))
+        .compact();
+  }
+
+  public boolean validateToken(String token, HttpServletResponse response)
+      throws IOException {
     try {
       Jwts.parser().setSigningKey(getSecretKeyFrom(jwtSecret)).parseClaimsJws(token);
       return true;
@@ -53,6 +65,6 @@ public class JwtProvider {
 
   public SecretKey getSecretKeyFrom(String secretWord) {
     byte[] decodedKey = Base64.getDecoder().decode(secretWord);
-    return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+    return new SecretKeySpec(decodedKey, NUMBER_OFFSET, decodedKey.length, "AES");
   }
 }

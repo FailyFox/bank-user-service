@@ -26,7 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
   private final PersonDetailsService personDetailsService;
 
   @Override
-  public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain filterChain) throws IOException, ServletException {
     String token = jwtProvider.getTokenFromHeader(request);
     if (token == null) {
@@ -36,10 +36,9 @@ public class JwtFilter extends OncePerRequestFilter {
       PersonDetails personDetails = personDetailsService.loadUserByUsername(email);
       if (personDetails == null) {
         response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getWriter()
-            .write(objectMapper.writeValueAsString(
-                new ExceptionMessage(String.format("User with email %s not found", email))));
+            .write(objectMapper.writeValueAsString(new ExceptionMessage("Unauthorized")));
         return;
       }
       UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(

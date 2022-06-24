@@ -33,7 +33,8 @@ public class PersonServiceImpl implements PersonService {
 
   @Override
   public Person getPersonByEmail(String email) {
-    return personRepository.getPersonByEmail(email);
+    return personRepository.getPersonByEmail(email)
+        .orElseThrow(() -> new EntityNotFoundException("person", email));
   }
 
   @Override

@@ -1,12 +1,19 @@
 package com.greedobank.userservice.security.jwt;
 
+import static com.greedobank.userservice.util.Constants.EXPIRATION_TIME;
+import static com.greedobank.userservice.util.Constants.NUMBER_OFFSET;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greedobank.userservice.exception.ExceptionMessage;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Base64;
+import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;

@@ -1,13 +1,12 @@
 package com.greedobank.userservice.service.impl;
 
-import com.greedobank.userservice.dto.request.CustomerDtoRequest;
 import com.greedobank.userservice.dto.response.CustomerDtoResponse;
 import com.greedobank.userservice.exception.EntityNotFoundException;
-import com.greedobank.userservice.mapper.request.CustomerMapperRequest;
-import com.greedobank.userservice.mapper.response.CustomerMapperResponse;
-import com.greedobank.userservice.model.Customer;
+import com.greedobank.userservice.mapper.response.CustomerResponseMapper;
 import com.greedobank.userservice.repository.CustomerRepository;
 import com.greedobank.userservice.service.CustomerService;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +15,29 @@ import org.springframework.stereotype.Service;
 public class CustomerServiceImpl implements CustomerService {
 
   private final CustomerRepository customerRepository;
-  private final CustomerMapperRequest customerMapperRequest;
-  private final CustomerMapperResponse customerMapperResponse;
+  private final CustomerResponseMapper customerResponseMapper;
+
+
+  public List<CustomerDtoResponse> getAllCustomers() {
+    List<CustomerDtoResponse> customers = new ArrayList<>();
+    customerRepository.findAll()
+        .stream()
+        .map(customerResponseMapper::toDto)
+        .forEach(customers::add);
+    return customers;
+  }
+
+  /*
+  public Iterable<Customer> getAllCustomers() {
+    return customerRepository.findAll();
+  }
+
+   */
+
 
   public CustomerDtoResponse getCustomer(int id) {
     return customerRepository.findById(id)
-        .map(customerMapperResponse::toDto)
+        .map(customerResponseMapper::toDto)
         .orElseThrow(() -> new EntityNotFoundException("customer", id));
-  }
-
-  public CustomerDtoResponse addCustomer(CustomerDtoRequest dtoCustomer) {
-    Customer customer = customerMapperRequest.toCustomer(dtoCustomer);
-    return customerMapperResponse.toDto(customerRepository.save(customer));
   }
 }

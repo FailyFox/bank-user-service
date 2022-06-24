@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
-public interface CustomerMapperResponse {
+public interface CustomerResponseMapper {
 
   @Mappings({
       @Mapping(target = "fname", source = "customer.person.fname"),

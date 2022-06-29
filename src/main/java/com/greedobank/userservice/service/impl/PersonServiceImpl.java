@@ -1,6 +1,8 @@
 package com.greedobank.userservice.service.impl;
 
 import static com.greedobank.userservice.util.Constants.ENTITY_PERSON;
+import static com.greedobank.userservice.util.Constants.ROLE_CUSTOMER;
+import static com.greedobank.userservice.util.Constants.ROLE_MANAGER;
 
 import com.greedobank.userservice.exception.EntityNotFoundException;
 import com.greedobank.userservice.model.Person;
@@ -40,9 +42,9 @@ public class PersonServiceImpl implements PersonService {
   @Override
   public String getRole(Person person) {
     if (person.getCustomer() != null) {
-      return "ROLE_CUSTOMER";
+      return ROLE_CUSTOMER;
     } else if (person.getManager() != null) {
-      return "ROLE_MANAGER";
+      return ROLE_MANAGER;
     } else {
       return "Unauthorized Person";
     }

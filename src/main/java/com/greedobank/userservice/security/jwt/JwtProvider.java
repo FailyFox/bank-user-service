@@ -1,5 +1,6 @@
 package com.greedobank.userservice.security.jwt;
 
+import static com.greedobank.userservice.util.Constants.AUTHORIZATION_HEADER;
 import static com.greedobank.userservice.util.Constants.EXPIRATION_TIME;
 import static com.greedobank.userservice.util.Constants.NUMBER_OFFSET;
 
@@ -29,7 +30,6 @@ import org.springframework.stereotype.Component;
 public class JwtProvider {
 
   private final ObjectMapper objectMapper;
-  public static final String AUTHORIZATION_HEADER = "Authorization";
 
   @Value("${SECRET_WORD}")
   private String jwtSecret;

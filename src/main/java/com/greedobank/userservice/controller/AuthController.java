@@ -19,5 +19,4 @@ public class AuthController {
   public AuthResponse authentication(@Valid @RequestBody AuthRequest request) {
     return personService.authentication(request);
   }
-
 }

@@ -1,9 +1,8 @@
 package com.greedobank.userservice.service;
 
-import com.greedobank.userservice.dto.request.CustomerDtoRequest;
-import com.greedobank.userservice.dto.response.CustomerDtoResponse;
+import com.greedobank.userservice.dto.response.CustomerResponseDto;
 
 public interface CustomerService {
 
-  CustomerDtoResponse getCustomer(int id);
+  CustomerResponseDto getCustomer(int id);
 }

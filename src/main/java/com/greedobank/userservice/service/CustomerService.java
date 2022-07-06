@@ -1,14 +1,14 @@
 package com.greedobank.userservice.service;
 
-import com.greedobank.userservice.dto.request.CustomerDtoRequest;
-import com.greedobank.userservice.dto.response.CustomerDtoResponse;
+import com.greedobank.userservice.dto.request.CustomerRequestDto;
+import com.greedobank.userservice.dto.response.CustomerResponseDto;
 import java.util.List;
 
 public interface CustomerService {
 
-  CustomerDtoResponse getCustomer(int id);
+  CustomerResponseDto getCustomer(int id);
 
-  List<CustomerDtoResponse> getAllCustomers();
+  List<CustomerResponseDto> getAllCustomers();
 
-  CustomerDtoResponse addCustomer(CustomerDtoRequest dtoCustomer);
+  CustomerResponseDto addCustomer(CustomerRequestDto dtoCustomer);
 }

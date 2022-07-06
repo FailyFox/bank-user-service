@@ -1,6 +1,6 @@
 package com.greedobank.userservice.mapper.response;
 
-import com.greedobank.userservice.dto.response.CustomerDtoResponse;
+import com.greedobank.userservice.dto.response.CustomerResponseDto;
 import com.greedobank.userservice.model.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,7 +15,7 @@ public interface CustomerResponseMapper {
       @Mapping(target = "email", source = "person.email"),
       @Mapping(target = "address", source = "person.address")
   })
-  CustomerDtoResponse toDto(Customer customer);
+  CustomerResponseDto toDto(Customer customer);
 
-  Customer toCustomer(CustomerDtoResponse customerDtoResponse);
+  Customer toCustomer(CustomerResponseDto customerResponseDto);
 }

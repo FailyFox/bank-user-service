@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomerDtoRequest {
+public class CustomerRequestDto {
 
   @NotNull(message = "Name is missing")
   @Size(min = 3, max = 45, message = "Name should be from 3 to 45 letters")

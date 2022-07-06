@@ -1,7 +1,7 @@
 package com.greedobank.userservice.service.impl;
 
-import com.greedobank.userservice.dto.request.CustomerDtoRequest;
-import com.greedobank.userservice.dto.response.CustomerDtoResponse;
+import com.greedobank.userservice.dto.request.CustomerRequestDto;
+import com.greedobank.userservice.dto.response.CustomerResponseDto;
 import com.greedobank.userservice.exception.EntityNotFoundException;
 import com.greedobank.userservice.mapper.request.CustomerRequestMapper;
 import com.greedobank.userservice.mapper.response.CustomerResponseMapper;
@@ -25,15 +25,15 @@ public class CustomerServiceImpl implements CustomerService {
   private final PersonRepository personRepository;
 
   @Override
-  public CustomerDtoResponse getCustomer(int id) {
+  public CustomerResponseDto getCustomer(int id) {
     return customerRepository.findById(id)
         .map(customerResponseMapper::toDto)
         .orElseThrow(() -> new EntityNotFoundException("customer", id));
   }
 
   @Override
-  public List<CustomerDtoResponse> getAllCustomers() {
-    List<CustomerDtoResponse> customers = new ArrayList<>();
+  public List<CustomerResponseDto> getAllCustomers() {
+    List<CustomerResponseDto> customers = new ArrayList<>();
     customerRepository.findAll()
         .stream()
         .map(customerResponseMapper::toDto)
@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Override
-  public CustomerDtoResponse addCustomer(CustomerDtoRequest dtoCustomer) {
+  public CustomerResponseDto addCustomer(CustomerRequestDto dtoCustomer) {
     Person person = new Person();
     person.setFname(dtoCustomer.getFname());
     person.setLname(dtoCustomer.getLname());

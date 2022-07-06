@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomerDtoResponse {
+public class CustomerResponseDto {
 
   private Integer id;
   private String fname;

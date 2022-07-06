@@ -1,7 +1,7 @@
 package com.greedobank.userservice.controller;
 
-import com.greedobank.userservice.dto.request.CustomerDtoRequest;
-import com.greedobank.userservice.dto.response.CustomerDtoResponse;
+import com.greedobank.userservice.dto.request.CustomerRequestDto;
+import com.greedobank.userservice.dto.response.CustomerResponseDto;
 import com.greedobank.userservice.service.CustomerService;
 import java.util.List;
 import javax.validation.Valid;
@@ -25,20 +25,20 @@ public class CustomerController {
 
   @GetMapping("/{id}")
   @Secured({"ROLE_MANAGER"})
-  public CustomerDtoResponse getCustomer(@PathVariable Integer id) {
+  public CustomerResponseDto getCustomer(@PathVariable Integer id) {
     return customerService.getCustomer(id);
   }
 
   @GetMapping
   @Secured({"ROLE_MANAGER"})
-  public List<CustomerDtoResponse> getAllCustomers() {
+  public List<CustomerResponseDto> getAllCustomers() {
     return customerService.getAllCustomers();
   }
 
   @PostMapping
   @Secured({"ROLE_CUSTOMER"})
   @ResponseStatus(HttpStatus.CREATED)
-  public CustomerDtoResponse addCustomer(@Valid @RequestBody CustomerDtoRequest customer) {
+  public CustomerResponseDto addCustomer(@Valid @RequestBody CustomerRequestDto customer) {
     return customerService.addCustomer(customer);
   }
 }

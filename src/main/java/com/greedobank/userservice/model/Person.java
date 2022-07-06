@@ -1,9 +1,14 @@
 package com.greedobank.userservice.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Entity
 @Getter
@@ -20,9 +25,11 @@ public class Person {
   private String password;
   private String address;
 
-  @OneToOne(mappedBy = "person", optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "person", cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+      fetch = FetchType.LAZY)
   private Customer customer;
 
-  @OneToOne(mappedBy = "person", optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "person", cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+      fetch = FetchType.LAZY)
   private Manager manager;
 }

@@ -10,10 +10,10 @@ import org.mapstruct.Mappings;
 public interface CustomerResponseMapper {
 
   @Mappings({
-      @Mapping(target = "fname", source = "customer.person.fname"),
-      @Mapping(target = "lname", source = "customer.person.lname"),
-      @Mapping(target = "email", source = "customer.person.email"),
-      @Mapping(target = "address", source = "customer.person.address")
+      @Mapping(target = "fname", source = "person.fname"),
+      @Mapping(target = "lname", source = "person.lname"),
+      @Mapping(target = "email", source = "person.email"),
+      @Mapping(target = "address", source = "person.address")
   })
   CustomerDtoResponse toDto(Customer customer);
 

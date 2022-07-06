@@ -22,8 +22,7 @@ public class Customer {
   private String passportData;
   private LocalDate birthday;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @NotFound(action = NotFoundAction.IGNORE)
+  @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "personId", referencedColumnName = "id")
   private Person person;
 }

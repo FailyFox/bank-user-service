@@ -1,14 +1,13 @@
 package com.greedobank.userservice.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
-public class CustomerResponseDto {
+public class CustomerDtoResponse {
 
   private Integer id;
   private String fname;

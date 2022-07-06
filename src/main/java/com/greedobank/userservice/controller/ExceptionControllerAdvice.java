@@ -17,36 +17,37 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionControllerAdvice {
 
   @ExceptionHandler
-  public ResponseEntity<ExceptionMessage> noSuchEntity(EntityNotFoundException e) {
+  public ResponseEntity<ExceptionMessage> noSuchEntity(EntityNotFoundException exception) {
     return ResponseEntity
         .status(HttpStatus.NOT_FOUND)
-        .body(new ExceptionMessage(e.getMessage()));
+        .body(new ExceptionMessage(exception.getMessage()));
   }
 
   @ExceptionHandler
-  public ResponseEntity<ExceptionMessage> unauthorized(AuthenticationException e) {
+  public ResponseEntity<ExceptionMessage> unauthorized(AuthenticationException exception) {
     return ResponseEntity
         .status(HttpStatus.UNAUTHORIZED)
-        .body(new ExceptionMessage(e.getMessage()));
+        .body(new ExceptionMessage(exception.getMessage()));
   }
 
   @ExceptionHandler
-  public ResponseEntity<ExceptionMessage> forbidden(AccessDeniedException e) {
+  public ResponseEntity<ExceptionMessage> forbidden(AccessDeniedException exception) {
     return ResponseEntity
         .status(HttpStatus.FORBIDDEN)
-        .body(new ExceptionMessage(e.getMessage()));
+        .body(new ExceptionMessage(exception.getMessage()));
   }
 
   @ExceptionHandler
-  public ResponseEntity<ExceptionMessage> validArgs(IllegalArgumentException e) {
+  public ResponseEntity<ExceptionMessage> validArgs(IllegalArgumentException exception) {
     return ResponseEntity
         .status(HttpStatus.BAD_REQUEST)
-        .body(new ExceptionMessage(e.getMessage()));
+        .body(new ExceptionMessage(exception.getMessage()));
   }
 
   @ExceptionHandler
-  public ResponseEntity<ExceptionMessage> validException(MethodArgumentNotValidException e) {
-    List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+  public ResponseEntity<ExceptionMessage> validException(
+      MethodArgumentNotValidException exception) {
+    List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
     return ResponseEntity
         .status(HttpStatus.BAD_REQUEST)
         .body(new ExceptionMessage(

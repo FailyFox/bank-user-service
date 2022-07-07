@@ -12,6 +12,7 @@ import com.greedobank.userservice.repository.PersonRepository;
 import com.greedobank.userservice.service.CustomerService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
 
   @Override
   public List<CustomerResponseDto> getAllCustomers() {
-    List<CustomerResponseDto> customers = new ArrayList<>();
-    customerRepository.findAll()
+    return customerRepository.findAll()
         .stream()
         .map(customerResponseMapper::toDto)
-        .forEach(customers::add);
-    return customers;
+        .collect(Collectors.toList());
   }
 
   @Override

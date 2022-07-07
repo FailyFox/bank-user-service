@@ -10,7 +10,6 @@ import com.greedobank.userservice.model.Person;
 import com.greedobank.userservice.repository.CustomerRepository;
 import com.greedobank.userservice.repository.PersonRepository;
 import com.greedobank.userservice.service.CustomerService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Override
-  public CustomerResponseDto addCustomer(CustomerRequestDto dtoCustomer) {
+  public Person savePerson(CustomerRequestDto dtoCustomer) {
     Person person = new Person();
     person.setFname(dtoCustomer.getFname());
     person.setLname(dtoCustomer.getLname());
@@ -49,6 +48,12 @@ public class CustomerServiceImpl implements CustomerService {
     person.setPassword(dtoCustomer.getPassword());
     person.setAddress(dtoCustomer.getAddress());
     personRepository.save(person);
+    return person;
+  }
+
+  @Override
+  public CustomerResponseDto addCustomer(CustomerRequestDto dtoCustomer) {
+    Person person = savePerson(dtoCustomer);
     Customer customer = customerRequestMapper.toCustomer(dtoCustomer);
     person.setCustomer(customer);
     customer.setPerson(person);

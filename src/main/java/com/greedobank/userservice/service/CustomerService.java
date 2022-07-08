@@ -11,7 +11,5 @@ public interface CustomerService {
 
   List<CustomerResponseDto> getAllCustomers();
 
-  Person savePerson(CustomerRequestDto dtoCustomer);
-
   CustomerResponseDto addCustomer(CustomerRequestDto dtoCustomer);
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,23 +41,23 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Override
-  public Person savePerson(CustomerRequestDto dtoCustomer) {
+  @Transactional
+  public CustomerResponseDto addCustomer(CustomerRequestDto dtoCustomer) {
+    Person person = createPerson(dtoCustomer);
+    personRepository.save(person);
+    Customer customer = customerRequestMapper.toCustomer(dtoCustomer);
+    person.setCustomer(customer);
+    customer.setPerson(person);
+    return customerResponseMapper.toDto(customerRepository.save(customer));
+  }
+
+  private Person createPerson(CustomerRequestDto dtoCustomer) {
     Person person = new Person();
     person.setFname(dtoCustomer.getFname());
     person.setLname(dtoCustomer.getLname());
     person.setEmail(dtoCustomer.getEmail());
     person.setPassword(dtoCustomer.getPassword());
     person.setAddress(dtoCustomer.getAddress());
-    personRepository.save(person);
     return person;
-  }
-
-  @Override
-  public CustomerResponseDto addCustomer(CustomerRequestDto dtoCustomer) {
-    Person person = savePerson(dtoCustomer);
-    Customer customer = customerRequestMapper.toCustomer(dtoCustomer);
-    person.setCustomer(customer);
-    customer.setPerson(person);
-    return customerResponseMapper.toDto(customerRepository.save(customer));
   }
 }

@@ -1,6 +1,7 @@
 package com.greedobank.userservice.controller;
 
 import com.greedobank.userservice.dto.request.CustomerRequestDto;
+import com.greedobank.userservice.dto.request.CustomerUpdateStatusRequestDto;
 import com.greedobank.userservice.dto.response.CustomerResponseDto;
 import com.greedobank.userservice.service.CustomerService;
 import java.util.List;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,5 +42,12 @@ public class CustomerController {
   @ResponseStatus(HttpStatus.CREATED)
   public CustomerResponseDto addCustomer(@Valid @RequestBody CustomerRequestDto customer) {
     return customerService.addCustomer(customer);
+  }
+
+  @PatchMapping("/status/{id}")
+  @Secured({"ROLE_MANAGER"})
+  public CustomerResponseDto updateCustomerStatus(@PathVariable Integer id,
+      @Valid @RequestBody CustomerUpdateStatusRequestDto dto) {
+    return customerService.updateCustomerStatus(dto, id);
   }
 }

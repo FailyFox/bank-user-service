@@ -6,7 +6,8 @@ public final class Constants {
 
   }
 
-  public static final String ENTITY_PERSON = "Person";
+  public static final String ENTITY_PERSON = "person";
+  public static final String ENTITY_CUSTOMER = "customer";
   public static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
   public static final String ROLE_MANAGER = "ROLE_MANAGER";
   public static final int NUMBER_OFFSET = 0;

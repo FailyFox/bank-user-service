@@ -1,9 +1,13 @@
 package com.greedobank.userservice.service.impl;
 
+import static com.greedobank.userservice.util.Constants.ENTITY_CUSTOMER;
+
 import com.greedobank.userservice.dto.request.CustomerRequestDto;
+import com.greedobank.userservice.dto.request.CustomerUpdateStatusRequestDto;
 import com.greedobank.userservice.dto.response.CustomerResponseDto;
 import com.greedobank.userservice.exception.EntityNotFoundException;
 import com.greedobank.userservice.mapper.request.CustomerRequestMapper;
+import com.greedobank.userservice.mapper.request.CustomerUpdateStatusRequestMapper;
 import com.greedobank.userservice.mapper.response.CustomerResponseMapper;
 import com.greedobank.userservice.model.Customer;
 import com.greedobank.userservice.model.Person;
@@ -46,8 +50,17 @@ public class CustomerServiceImpl implements CustomerService {
     Person person = createPerson(dtoCustomer);
     personRepository.save(person);
     Customer customer = customerRequestMapper.toCustomer(dtoCustomer);
+    customer.setStatus("PENDING");
     person.setCustomer(customer);
     customer.setPerson(person);
+    return customerResponseMapper.toDto(customerRepository.save(customer));
+  }
+
+  @Override
+  public CustomerResponseDto updateCustomerStatus(CustomerUpdateStatusRequestDto dto, Integer id) {
+    Customer customer = customerRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(ENTITY_CUSTOMER, id));
+    customer.setStatus(dto.getStatus());
     return customerResponseMapper.toDto(customerRepository.save(customer));
   }
 

@@ -2,9 +2,7 @@ package com.greedobank.userservice.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -15,9 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greedobank.userservice.BaseTest;
 import com.greedobank.userservice.dto.request.CustomerRequestDto;
 import com.greedobank.userservice.dto.response.CustomerResponseDto;
+import com.greedobank.userservice.security.details.PersonDetailsService;
 import com.greedobank.userservice.service.impl.CustomerServiceImpl;
 import java.time.format.DateTimeFormatter;
-import javax.naming.AuthenticationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -25,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -46,8 +43,8 @@ public class CustomerControllerTest extends BaseTest {
   @BeforeEach
   public void setupDto() {
     responseDto = createCustomerResponseDto();
-    validFieldsRequest = createCustomerRequestDto();
-    invalidFieldsRequest = createCustomerRequestDto();
+    validFieldsRequest = createValidCustomerRequestDto();
+    invalidFieldsRequest = createInvalidCustomerRequestDto();
   }
 
   @Test
@@ -70,12 +67,34 @@ public class CustomerControllerTest extends BaseTest {
   }
 
   @Test
+  @WithMockUser(username = "rzherebetskyi@gmail.com", roles = "MANAGER")
+  public void getCustomerAccountById_thenReturnNoSuchEntity() throws Exception {
+    when(customerService.getCustomer(anyInt())).thenReturn(responseDto);
+    mockMvc.perform(get("/customer/{id}", ID_ZERO))
+        .andDo(print())
+        .andExpect(status().isNotFound());
+  }
+
+  @Test
   @WithMockUser(username = "tchornyi@gmail.com", roles = "CUSTOMER")
   public void getCustomerAccountById_thenReturnForbidden() throws Exception {
     when(customerService.getCustomer(anyInt())).thenReturn(responseDto);
     mockMvc.perform(get("/customer/{id}", ID_DEFAULT))
         .andDo(print())
         .andExpect(status().isForbidden());
+  }
+
+  @Test
+  @WithMockUser(username = "tchornyi@gmail.com", roles = "CUSTOMER")
+  public void createCustomerAccount_thenReturnInvalidFields() throws Exception {
+    when(customerService.addCustomer(any(CustomerRequestDto.class)))
+        .thenReturn(responseDto);
+    mockMvc.perform(post("/customer")
+            .content(new ObjectMapper().writeValueAsString(invalidFieldsRequest))
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+        .andDo(print())
+        .andExpect(status().isBadRequest());
   }
 
   @Test

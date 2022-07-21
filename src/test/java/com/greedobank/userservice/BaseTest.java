@@ -2,6 +2,7 @@ package com.greedobank.userservice;
 
 import com.greedobank.userservice.dto.request.CustomerUpdateStatusRequestDto;
 import com.greedobank.userservice.dto.response.CustomerResponseDto;
+import com.greedobank.userservice.model.enums.Status;
 import java.time.LocalDate;
 
 public abstract class BaseTest {
@@ -11,7 +12,7 @@ public abstract class BaseTest {
 
   protected static CustomerUpdateStatusRequestDto validUpdateCustomerStatus() {
     return CustomerUpdateStatusRequestDto.builder()
-        .status("APPROVED")
+        .status(Status.APPROVED)
         .build();
   }
 
@@ -32,7 +33,7 @@ public abstract class BaseTest {
         .idCode("3456317822")
         .passportData("3267843678843")
         .birthday(BIRTHDAY)
-        .status("APPROVED")
+        .status(Status.APPROVED)
         .build();
   }
 }

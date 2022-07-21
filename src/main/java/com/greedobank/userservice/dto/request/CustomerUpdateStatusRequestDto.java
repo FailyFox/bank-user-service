@@ -1,5 +1,6 @@
 package com.greedobank.userservice.dto.request;
 
+import com.greedobank.userservice.model.enums.Status;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,5 @@ import lombok.Setter;
 public class CustomerUpdateStatusRequestDto {
 
   @NotNull(message = "Status is missing")
-  @Pattern(regexp = "(^APPROVED$)|(^DECLINED$)",
-      message = "Status must be 'APPROVED' or 'DECLINED'")
-  private String status;
+  private Status status;
 }

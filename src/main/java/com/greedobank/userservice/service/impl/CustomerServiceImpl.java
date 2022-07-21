@@ -11,6 +11,7 @@ import com.greedobank.userservice.mapper.request.CustomerUpdateStatusRequestMapp
 import com.greedobank.userservice.mapper.response.CustomerResponseMapper;
 import com.greedobank.userservice.model.Customer;
 import com.greedobank.userservice.model.Person;
+import com.greedobank.userservice.model.enums.Status;
 import com.greedobank.userservice.repository.CustomerRepository;
 import com.greedobank.userservice.repository.PersonRepository;
 import com.greedobank.userservice.service.CustomerService;
@@ -27,6 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
   private final CustomerRepository customerRepository;
   private final CustomerResponseMapper customerResponseMapper;
   private final CustomerRequestMapper customerRequestMapper;
+  private final CustomerUpdateStatusRequestMapper customerUpdateStatusRequestMapper;
   private final PersonRepository personRepository;
 
   @Override
@@ -50,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
     Person person = createPerson(dtoCustomer);
     personRepository.save(person);
     Customer customer = customerRequestMapper.toCustomer(dtoCustomer);
-    customer.setStatus("PENDING");
+    customer.setStatus(Status.PENDING);
     person.setCustomer(customer);
     customer.setPerson(person);
     return customerResponseMapper.toDto(customerRepository.save(customer));
@@ -58,10 +60,10 @@ public class CustomerServiceImpl implements CustomerService {
 
   @Override
   public CustomerResponseDto updateCustomerStatus(CustomerUpdateStatusRequestDto dto, Integer id) {
-    Customer customer = customerRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException(ENTITY_CUSTOMER, id));
-    customer.setStatus(dto.getStatus());
-    return customerResponseMapper.toDto(customerRepository.save(customer));
+    return customerResponseMapper.toDto(
+        customerRepository.save(customerRepository.findById(id)
+            .map(customer -> customerUpdateStatusRequestMapper.updateStatus(dto, customer))
+            .orElseThrow(() -> new EntityNotFoundException(ENTITY_CUSTOMER, id))));
   }
 
   private Person createPerson(CustomerRequestDto dtoCustomer) {

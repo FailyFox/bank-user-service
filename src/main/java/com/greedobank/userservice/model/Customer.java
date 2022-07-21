@@ -1,5 +1,6 @@
 package com.greedobank.userservice.model;
 
+import com.greedobank.userservice.model.enums.Status;
 import java.time.LocalDate;
 import javax.persistence.*;
 import lombok.Getter;
@@ -23,5 +24,6 @@ public class Customer {
   @JoinColumn(name = "personId", referencedColumnName = "id")
   private Person person;
 
-  private String status;
+  @Enumerated(EnumType.STRING)
+  private Status status;
 }

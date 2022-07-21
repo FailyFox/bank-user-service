@@ -1,6 +1,7 @@
 package com.greedobank.userservice.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.greedobank.userservice.model.enums.Status;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,5 +26,5 @@ public class CustomerResponseDto {
   private String passportData;
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate birthday;
-  private String status;
+  private Status status;
 }

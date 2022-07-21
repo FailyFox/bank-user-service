@@ -26,10 +26,10 @@ import org.springframework.test.web.servlet.MockMvc;
 public class AuthControllerTest extends BaseTest {
 
   @Mock
-  PersonServiceImpl personService;
+  private PersonServiceImpl personService;
 
   @Autowired
-  MockMvc mockMvc;
+  private MockMvc mockMvc;
 
   private AuthRequest validAuthRequest;
   private AuthResponse response;

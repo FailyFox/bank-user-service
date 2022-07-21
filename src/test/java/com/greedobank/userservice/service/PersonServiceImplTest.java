@@ -48,18 +48,6 @@ public class PersonServiceImplTest extends BaseTest {
   }
 
   @Test
-  public void authentication_thenReturnAuthResponse() {
-    String token = jwtProvider.generateToken(personCustomer.getEmail());
-    new AuthResponse(token);
-//    when()
-//    when(personRepository.getPersonByEmail("tchornyi@gmail.com"))
-//        .thenReturn(Optional.of(personCustomer));
-//    String token = jwtProvider.generateToken(personCustomer.getEmail());
-//    AuthResponse response = personService.authentication(request);
-//    //Assertions.assertEquals(response,pe);
-  }
-
-  @Test
   public void getPersonByEmail_thenReturnPerson() {
     when(personRepository.getPersonByEmail("tchornyi@gmail.com"))
         .thenReturn(Optional.of(personCustomer));
@@ -79,11 +67,6 @@ public class PersonServiceImplTest extends BaseTest {
     Boolean encoder = passwordEncoder
         .matches(personCustomer.getPassword(), "tchornyi");
     Assertions.assertEquals(PASSWORD, personCustomer.getPassword());
-//    Assertions.assertEquals(personResponse.getId(), personCustomer.getId());
-//    Assertions.assertEquals(personResponse.getFname(), personCustomer.getFname());
-//    Assertions.assertEquals(personResponse.getLname(), personCustomer.getLname());
-//    Assertions.assertEquals(personResponse.getEmail(), personCustomer.getEmail());
-//    Assertions.assertEquals(personResponse.getAddress(), personCustomer.getAddress());
   }
 
   @Test
@@ -102,14 +85,5 @@ public class PersonServiceImplTest extends BaseTest {
   public void getPersonRole_thenReturnUnauthorizedPerson() {
     String role = personService.getRole(personUnauthorized);
     Assertions.assertEquals(role, "Unauthorized Person");
-  }
-
-  @Test
-  public void getCustomerAccountById_thenReturnUnauthorized() throws Exception {
-    //personDetailsService.loadUserByUsername(null);
-    //when(customerService.getCustomer(anyInt())).thenReturn(responseDto);
-    //when(personDetailsService.loadUserByUsername(null)).thenReturn(null);
-    personDetails = null;
-
   }
 }

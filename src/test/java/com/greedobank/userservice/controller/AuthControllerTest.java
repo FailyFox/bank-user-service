@@ -2,7 +2,6 @@ package com.greedobank.userservice.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -11,8 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greedobank.userservice.BaseTest;
 import com.greedobank.userservice.security.AuthRequest;
 import com.greedobank.userservice.security.AuthResponse;
-import com.greedobank.userservice.security.details.PersonDetails;
-import com.greedobank.userservice.security.details.PersonDetailsService;
 import com.greedobank.userservice.service.impl.PersonServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

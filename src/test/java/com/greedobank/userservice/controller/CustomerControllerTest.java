@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greedobank.userservice.BaseTest;
 import com.greedobank.userservice.dto.request.CustomerRequestDto;
 import com.greedobank.userservice.dto.response.CustomerResponseDto;
-import com.greedobank.userservice.security.details.PersonDetailsService;
 import com.greedobank.userservice.service.impl.CustomerServiceImpl;
 import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.BeforeEach;

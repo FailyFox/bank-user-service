@@ -1,17 +1,20 @@
 package com.greedobank.userservice;
 
 import com.greedobank.userservice.dto.request.CustomerRequestDto;
+import com.greedobank.userservice.dto.request.CustomerUpdateStatusRequestDto;
 import com.greedobank.userservice.dto.response.CustomerResponseDto;
 import com.greedobank.userservice.model.Customer;
 import com.greedobank.userservice.model.Manager;
 import com.greedobank.userservice.model.Person;
+import com.greedobank.userservice.model.enums.Status;
 import com.greedobank.userservice.security.AuthRequest;
 import java.time.LocalDate;
 
 public abstract class BaseTest {
+
   protected static final Integer ID_DEFAULT = 1;
   protected static final Integer ID_ZERO = 0;
-  protected static final LocalDate birthday = LocalDate.of(1988, 9,30);
+  protected static final LocalDate birthday = LocalDate.of(1988, 9, 30);
   protected static final String PASSWORD = "$2a$10$KGCOzcEEF2GsWpjBCkxziulQyPq0uXMjM19gf10PHHnKQoJRLS6ji";
 
   protected static Person createPersonCustomer() {
@@ -62,15 +65,8 @@ public abstract class BaseTest {
   protected static Manager createManager() {
     return Manager.builder()
         .id(1)
-import com.greedobank.userservice.dto.request.CustomerUpdateStatusRequestDto;
-import com.greedobank.userservice.dto.response.CustomerResponseDto;
-import com.greedobank.userservice.model.enums.Status;
-import java.time.LocalDate;
-
-public abstract class BaseTest {
-
-  protected static final Integer ID_DEFAULT = 1;
-  protected static final LocalDate BIRTHDAY = LocalDate.of(1988,9,30);
+        .build();
+  }
 
   protected static CustomerUpdateStatusRequestDto validUpdateCustomerStatus() {
     return CustomerUpdateStatusRequestDto.builder()
@@ -94,7 +90,6 @@ public abstract class BaseTest {
         .phone("+380674567612")
         .idCode("3456317822")
         .passportData("3267843678843")
-        .birthday(BIRTHDAY)
         .status(Status.APPROVED)
         .birthday(birthday)
         .build();

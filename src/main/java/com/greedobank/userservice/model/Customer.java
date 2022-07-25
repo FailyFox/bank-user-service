@@ -1,5 +1,8 @@
 package com.greedobank.userservice.model;
 
+import com.greedobank.userservice.model.enums.Status;
+import java.time.LocalDate;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,4 +34,7 @@ public class Customer {
   @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "personId", referencedColumnName = "id")
   private Person person;
+
+  @Enumerated(EnumType.STRING)
+  private Status status;
 }

@@ -1,12 +1,17 @@
 package com.greedobank.userservice.service.impl;
 
+import static com.greedobank.userservice.util.Constants.ENTITY_CUSTOMER;
+
 import com.greedobank.userservice.dto.request.CustomerRequestDto;
+import com.greedobank.userservice.dto.request.CustomerUpdateStatusRequestDto;
 import com.greedobank.userservice.dto.response.CustomerResponseDto;
 import com.greedobank.userservice.exception.EntityNotFoundException;
 import com.greedobank.userservice.mapper.request.CustomerRequestMapper;
+import com.greedobank.userservice.mapper.request.CustomerUpdateStatusRequestMapper;
 import com.greedobank.userservice.mapper.response.CustomerResponseMapper;
 import com.greedobank.userservice.model.Customer;
 import com.greedobank.userservice.model.Person;
+import com.greedobank.userservice.model.enums.Status;
 import com.greedobank.userservice.repository.CustomerRepository;
 import com.greedobank.userservice.repository.PersonRepository;
 import com.greedobank.userservice.service.CustomerService;
@@ -23,6 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
   private final CustomerRepository customerRepository;
   private final CustomerResponseMapper customerResponseMapper;
   private final CustomerRequestMapper customerRequestMapper;
+  private final CustomerUpdateStatusRequestMapper customerUpdateStatusRequestMapper;
   private final PersonRepository personRepository;
 
   @Override
@@ -46,9 +52,18 @@ public class CustomerServiceImpl implements CustomerService {
     Person person = createPerson(dtoCustomer);
     personRepository.save(person);
     Customer customer = customerRequestMapper.toCustomer(dtoCustomer);
+    customer.setStatus(Status.PENDING);
     person.setCustomer(customer);
     customer.setPerson(person);
     return customerResponseMapper.toDto(customerRepository.save(customer));
+  }
+
+  @Override
+  public CustomerResponseDto updateCustomerStatus(CustomerUpdateStatusRequestDto dto, Integer id) {
+    return customerResponseMapper.toDto(
+        customerRepository.save(customerRepository.findById(id)
+            .map(customer -> customerUpdateStatusRequestMapper.updateStatus(dto, customer))
+            .orElseThrow(() -> new EntityNotFoundException(ENTITY_CUSTOMER, id))));
   }
 
   private Person createPerson(CustomerRequestDto dtoCustomer) {

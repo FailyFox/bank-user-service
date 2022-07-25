@@ -21,6 +21,21 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.greedobank.userservice.BaseTest;
+import com.greedobank.userservice.dto.request.CustomerUpdateStatusRequestDto;
+import com.greedobank.userservice.dto.response.CustomerResponseDto;
+import com.greedobank.userservice.service.impl.CustomerServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,11 +45,21 @@ import org.springframework.test.web.servlet.MockMvc;
 public class CustomerControllerTest extends BaseTest {
 
   @Mock
+  @MockBean
   private CustomerServiceImpl customerService;
 
   @Autowired
   private MockMvc mockMvc;
 
+  private CustomerUpdateStatusRequestDto validCustomerUpdateStatusRequestDto;
+  private CustomerUpdateStatusRequestDto invalidCustomerUpdateStatusRequestDto;
+  private CustomerResponseDto customerResponseDto;
+
+  @BeforeEach
+  public void setupDto() {
+    customerResponseDto = createCustomerResponseDto();
+    validCustomerUpdateStatusRequestDto = validUpdateCustomerStatus();
+    invalidCustomerUpdateStatusRequestDto = invalidUpdateCustomerStatus();
   private CustomerRequestDto validFieldsRequest;
   private CustomerRequestDto invalidFieldsRequest;
   private CustomerResponseDto responseDto;
@@ -67,6 +92,15 @@ public class CustomerControllerTest extends BaseTest {
 
   @Test
   @WithMockUser(username = "rzherebetskyi@gmail.com", roles = "MANAGER")
+  public void updateCustomerStatus_thenReturnResponseDto() throws Exception {
+    when(customerService.updateCustomerStatus(any(CustomerUpdateStatusRequestDto.class), anyInt()))
+        .thenReturn(customerResponseDto);
+    mockMvc.perform(patch("/customer/status/{id}", ID_DEFAULT)
+        .content(new ObjectMapper().writeValueAsString(validCustomerUpdateStatusRequestDto))
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON))
+        .andDo(print())
+        .andExpect(jsonPath("$.status").value(customerResponseDto.getStatus()));
   public void getCustomerAccountById_thenReturnNoSuchEntity() throws Exception {
     when(customerService.getCustomer(anyInt())).thenReturn(responseDto);
     mockMvc.perform(get("/customer/{id}", ID_ZERO))

@@ -62,6 +62,25 @@ public abstract class BaseTest {
   protected static Manager createManager() {
     return Manager.builder()
         .id(1)
+import com.greedobank.userservice.dto.request.CustomerUpdateStatusRequestDto;
+import com.greedobank.userservice.dto.response.CustomerResponseDto;
+import com.greedobank.userservice.model.enums.Status;
+import java.time.LocalDate;
+
+public abstract class BaseTest {
+
+  protected static final Integer ID_DEFAULT = 1;
+  protected static final LocalDate BIRTHDAY = LocalDate.of(1988,9,30);
+
+  protected static CustomerUpdateStatusRequestDto validUpdateCustomerStatus() {
+    return CustomerUpdateStatusRequestDto.builder()
+        .status(Status.APPROVED)
+        .build();
+  }
+
+  protected static CustomerUpdateStatusRequestDto invalidUpdateCustomerStatus() {
+    return CustomerUpdateStatusRequestDto.builder()
+        .status(null)
         .build();
   }
 
@@ -75,6 +94,8 @@ public abstract class BaseTest {
         .phone("+380674567612")
         .idCode("3456317822")
         .passportData("3267843678843")
+        .birthday(BIRTHDAY)
+        .status(Status.APPROVED)
         .birthday(birthday)
         .build();
   }
